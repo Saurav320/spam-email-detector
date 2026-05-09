@@ -35,7 +35,7 @@ export default function App() {
     setErrorMsg("");
 
     try {
-      const res = await fetch("/ml-api/predict", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/predict`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: trimmed }),
@@ -46,8 +46,8 @@ export default function App() {
         throw new Error((err as any).error ?? `Server error: ${res.status}`);
       }
 
-      const data = await res.json() as { result: "Spam Mail" | "Ham Mail" };
-      setResult(data.result);
+      const data = await res.json() as { prediction: "Spam Mail" | "Ham Mail" };
+      setResult(data.prediction);
       setStatus("result");
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -195,7 +195,7 @@ export default function App() {
 
         {/* Footer */}
         <footer className="footer">
-          Built with <span>React</span>, <span>Flask</span> and <span>Machine Learning</span>
+          Developed by <span>Saurav Kumar</span> using <span>React</span>, <span>Flask</span> and <span>Machine Learning</span>
         </footer>
       </div>
     </>
